@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Kamu</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+font-family:'Inter', sans-serif;
+color:white;
+background:#0b0b16;
+}
+
+/* BACKGROUND STARS */
+
+.stars{
+position:fixed;
+width:100%;
+height:100%;
+background:url("https://www.transparenttextures.com/patterns/stardust.png");
+opacity:0.25;
+animation:moveStars 80s linear infinite;
+}
+
+@keyframes moveStars{
+from{transform:translateY(0)}
+to{transform:translateY(-2000px)}
+}
+
+/* INTRO */
+
+#intro{
+position:absolute;
+width:100%;
+height:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+background:#0b0b16;
+z-index:10;
+text-align:center;
+padding:20px;
+transition:1.5s;
+}
+
+#intro h1{
+font-family:'Playfair Display', serif;
+letter-spacing:3px;
+font-size:2rem;
+opacity:0.9;
+margin-bottom:20px;
+}
+
+button{
+padding:12px 30px;
+border-radius:40px;
+border:1px solid rgba(255,255,255,0.4);
+background:transparent;
+color:white;
+cursor:pointer;
+transition:0.4s;
+}
+
+button:hover{
+background:rgba(255,255,255,0.15);
+}
+
+/* SLIDER */
+
+.slider{
+position:absolute;
+width:100%;
+height:100%;
+display:flex;
+transition:1.2s ease;
+}
+
+.slide{
+min-width:100%;
+height:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:25px;
+text-align:center;
+}
+
+.slide-content{
+
+max-width:650px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(20px);
+padding:45px 30px;
+border-radius:25px;
+box-shadow:0 0 60px rgba(255,255,255,0.08);
+
+animation:cinematic 5s ease infinite alternate;
+}
+
+@keyframes cinematic{
+
+0%{transform:scale(1)}
+100%{transform:scale(1.03)}
+
+}
+
+.slide h2{
+font-family:'Playfair Display', serif;
+margin-bottom:20px;
+letter-spacing:2px;
+font-size:24px;
+}
+
+.slide p{
+line-height:1.8;
+opacity:0.9;
+font-size:15px;
+min-height:120px;
+}
+
+/* NAV */
+
+.nav{
+position:absolute;
+bottom:30px;
+width:100%;
+display:flex;
+justify-content:center;
+gap:15px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width:480px){
+
+.slide-content{
+padding:35px 20px;
+}
+
+.slide h2{
+font-size:20px;
+}
+
+.slide p{
+font-size:14px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<div id="intro">
+<h1>Sebuah Cerita Untukmu</h1>
+<button onclick="start()">Mulai</button>
+</div>
+
+<div class="slider" id="slider">
+
+<div class="slide">
+<div class="slide-content">
+<h2>Selamat Ulang Tahun 🤍</h2>
+<p class="type"></p>
+</div>
+</div>
+
+<div class="slide">
+<div class="slide-content">
+<h2>Tentang Kamu</h2>
+<p class="type"></p>
+</div>
+</div>
+
+<div class="slide">
+<div class="slide-content">
+<h2>Tentang Kita</h2>
+<p class="type"></p>
+</div>
+</div>
+
+<div class="slide">
+<div class="slide-content">
+<h2>Harapanku</h2>
+<p class="type"></p>
+</div>
+</div>
+
+<div class="slide">
+<div class="slide-content">
+<h2>Sampai Nanti 🤍</h2>
+<p class="type"></p>
+</div>
+</div>
+
+</div>
+
+<div class="nav">
+<button onclick="prevSlide()">Kembali</button>
+<button onclick="nextSlide()">Lanjut</button>
+</div>
+
+<audio id="music" loop preload="auto">
+<source src="lagu.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+let current=0
+const slider=document.getElementById("slider")
+
+function updateSlide(){
+slider.style.transform="translateX(-"+current*100+"%)"
+startTyping(current)
+}
+
+function nextSlide(){
+if(current<4){
+current++
+updateSlide()
+}
+}
+
+function prevSlide(){
+if(current>0){
+current--
+updateSlide()
+}
+}
+
+/* START */
+
+function start(){
+
+const music=document.getElementById("music")
+
+document.getElementById("intro").style.opacity=0
+
+setTimeout(()=>{
+
+document.getElementById("intro").style.display="none"
+
+music.muted=false
+music.play().catch(()=>{})
+
+startTyping(0)
+
+},1500)
+
+}
+
+/* TYPEWRITER (LEBIH LAMBAT) */
+
+const texts=[
+
+"Hari ini bukan sekadar perayaan. Ini tentang seseorang yang tumbuh semakin kuat, semakin dewasa, dan tetap lembut.",
+
+"Aku mengagumi caramu menghadapi dunia. Tidak selalu mudah, tapi kamu tetap berjalan dengan tenang.",
+
+"Terima kasih sudah memilih bertahan. Terima kasih sudah menjadikan aku bagian dari perjalananmu.",
+
+"Semoga tahun ini membawamu lebih dekat pada semua yang kamu impikan. Aku harap aku masih ada di sisimu.",
+
+"Jika suatu hari kamu membaca ini lagi, semoga kamu tersenyum. Terima kasih sudah hadir di hidupku."
+
+]
+
+function startTyping(index){
+
+const element=document.querySelectorAll(".type")[index]
+
+element.innerHTML=""
+
+let i=0
+
+function typing(){
+
+if(i<texts[index].length){
+
+element.innerHTML+=texts[index].charAt(i)
+
+i++
+
+setTimeout(typing,80) // lebih lambat supaya nyaman
+
+}
+
+}
+
+typing()
+
+}
+
+</script>
+
+</body>
+</html>
